@@ -13,9 +13,10 @@ import { MapMouseEvent } from 'mapbox-gl';
 })
 export class TweetComponent implements OnInit {
   private tweets: FeatureCollection;
-  name: string;
+  selectedName: string;
+  clickedName: string;
   selectedPoint: GeoJSON.Feature<GeoJSON.Point> | null;
-  clickedPoints: Object = {};
+  clickedPoint: GeoJSON.Feature<GeoJSON.Point> | null;
   lastPoint: string | null;
   @Output() cursorStyle = new EventEmitter();
   @Output() accessed = new EventEmitter();
@@ -26,7 +27,7 @@ export class TweetComponent implements OnInit {
   ngOnInit() {
     this.getTweets();
     this.clicked = false;
-    this.name = "Blacksnort Hellweed";
+    this.selectedName = "Blacksnort Hellweed";
   }
   getTweets(): void {
     this.tweetService.getTweets().subscribe(data => this.tweets = this.tweetService.splitTweets(data));
@@ -35,13 +36,13 @@ export class TweetComponent implements OnInit {
     //For use with the API, probably worth hardcoding in a whole bunch of spooky names at some point
     if(api == true){
       this.tweetService.getName().subscribe(data => {
-        this.name = (data['names'][0] + " " + data['names'][1]);
+        this.selectedName = (data['names'][0] + " " + data['names'][1]);
       });
     }
     else{
       var firstNames = ["Blacksnort", "Dragonspit", "Beetlebite", "Frogbite", "Skullscare"];
       var lastNames = [" Hellweed", " Flameburp", " Flamecast", " Hatescreech", " Wartsnare"];
-      this.name = firstNames[Math.floor(Math.random()*5)] + lastNames[Math.floor(Math.random()*5)];
+      this.selectedName = firstNames[Math.floor(Math.random()*5)] + lastNames[Math.floor(Math.random()*5)];
     }
   }
   activateHoverOn(evt: MapMouseEvent) {
@@ -62,9 +63,10 @@ export class TweetComponent implements OnInit {
     this.accessed.emit(false);
   }
   onClick(evt: MapMouseEvent){
+    this.clickedPoint = null;
     this.ChangeDetectorRef.detectChanges();
-    var point = (<any>evt).features[0];
-    this.clickedPoints['' + point.properties.lon + "," + point.properties.lat] = point;
+    this.clickedPoint = (<any>evt).features[0];
+    this.clickedName = this.selectedName;
     this.cursorStyle.emit('pointer');
     this.accessed.emit(false);
   }

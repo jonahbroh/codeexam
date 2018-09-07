@@ -23,12 +23,12 @@
     </span>
     </mgl-popup>
     <mgl-popup
-      *ngFor="let p of objectKeys(clickedPoints)"
-      [lngLat]="clickedPoints[p].geometry.coordinates"
-      [closeOnClick]="true"
-    >
-      <span #tweet>
-        <p #name>{{clickedPoints[p].properties.tweet}}</p>
-        <p #category>{{clickedPoints[p].properties.time}}</p>
+        *ngIf="clickedPoint"
+        [lngLat]="clickedPoint.geometry.coordinates"
+        (close)="clickedPoint = null"
+      >
+      <span #place>
+        <p #name>{{clickedPoint.properties.name}}</p>
+        <p #category>{{clickedPoint.properties.category}}</p>
       </span>
-    </mgl-popup>
+      </mgl-popup>

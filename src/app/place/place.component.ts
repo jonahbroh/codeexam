@@ -29,11 +29,10 @@ export class PlaceComponent implements OnInit {
   // }
   private places: FeatureCollection;
   selectedPoint: GeoJSON.Feature<GeoJSON.Point> | null;
-  clickedPoints: Object = {};
+  clickedPoint: GeoJSON.Feature<GeoJSON.Point> | null;
   @Output() cursorStyle = new EventEmitter();
   @Output() accessed = new EventEmitter();
   clicked: boolean;
-  objectKeys = Object.keys;
   constructor(private placeService: PlaceService, private ChangeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
@@ -57,9 +56,9 @@ export class PlaceComponent implements OnInit {
     this.accessed.emit(false);
   }
   onClick(evt: MapMouseEvent){
+    this.clickedPoint = null;
     this.ChangeDetectorRef.detectChanges();
-    var point = (<any>evt).features[0];
-    this.clickedPoints['' + point.properties.lon + "," + point.properties.lat] = point;
+    this.clickedPoint = (<any>evt).features[0];
     this.cursorStyle.emit('pointer');
     this.accessed.emit(false);
   }

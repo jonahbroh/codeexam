@@ -18,19 +18,19 @@
       (close)="selectedPoint = null"
     >
     <span class="tweet">
-      <p class="name">{{name}} says:</p>
+      <p class="name">{{selectedName}} says:</p>
       <p class="text">{{selectedPoint.properties.tweet}}</p>
       <p class="time">{{selectedPoint.properties.time}}</p>
     </span>
     </mgl-popup>
     <mgl-popup
-      *ngFor="let p of objectKeys(clickedPoints)"
-      [lngLat]="clickedPoints[p].geometry.coordinates"
-      [closeOnClick]="true"
-    >
-    <span class="tweet">
-      <p class="name">{{getName()}} says:</p>
-      <p class="text">{{selectedPoint.properties.tweet}}</p>
-      <p class="time">{{selectedPoint.properties.time}}</p>
-    </span>
-    </mgl-popup>
+        *ngIf="clickedPoint"
+        [lngLat]="clickedPoint.geometry.coordinates"
+        (close)="clickedPoint = null"
+      >
+      <span class="tweet">
+        <p class="name">{{clickedName}} says:</p>
+        <p class="text">{{clickedPoint.properties.tweet}}</p>
+        <p class="time">{{clickedPoint.properties.time}}</p>
+      </span>
+      </mgl-popup>
