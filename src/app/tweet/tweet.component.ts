@@ -12,25 +12,11 @@ import { MapMouseEvent } from 'mapbox-gl';
   providers: [TweetService]
 })
 export class TweetComponent implements OnInit {
-  // private testTweet: Feature = {
-  //   type: "Feature",
-  //   geometry: {
-  //     type: 'Point',
-  //     coordinates : [ 35.05, -106.5]
-  //   },
-  //   properties: {
-  //     name: "name",
-  //     category: "category",
-  //     checkins: 17
-  //   }
-  // }
-  // private tweets: FeatureCollection = {
-  //   type: "FeatureCollection",
-  //   features: Array<Feature>()
-  // }
   private tweets: FeatureCollection;
+  name: string;
   selectedPoint: GeoJSON.Feature<GeoJSON.Point> | null;
   clickedPoints: Object = {};
+  lastPoint: string | null;
   @Output() cursorStyle = new EventEmitter();
   @Output() accessed = new EventEmitter();
   clicked: boolean;
@@ -40,15 +26,33 @@ export class TweetComponent implements OnInit {
   ngOnInit() {
     this.getTweets();
     this.clicked = false;
-    // this.tweets.features.push(this.testTweet);
+    this.name = "Blacksnort Hellweed";
   }
   getTweets(): void {
     this.tweetService.getTweets().subscribe(data => this.tweets = this.tweetService.splitTweets(data));
+  }
+  randomName(api: boolean): void {
+    //For use with the API, probably worth hardcoding in a whole bunch of spooky names at some point
+    if(api == true){
+      this.tweetService.getName().subscribe(data => {
+        this.name = (data['names'][0] + " " + data['names'][1]);
+      });
+    }
+    else{
+      var firstNames = ["Blacksnort", "Dragonspit", "Beetlebite", "Frogbite", "Skullscare"];
+      var lastNames = [" Hellweed", " Flameburp", " Flamecast", " Hatescreech", " Wartsnare"];
+      this.name = firstNames[Math.floor(Math.random()*5)] + lastNames[Math.floor(Math.random()*5)];
+    }
   }
   activateHoverOn(evt: MapMouseEvent) {
     this.selectedPoint = null;
     this.ChangeDetectorRef.detectChanges();
     this.selectedPoint = (<any>evt).features[0];
+    //In theory two tweets at exactly the same time wouldn't change, probably not worth throwing in an id for
+    if(this.selectedPoint.properties.time != this.lastPoint){
+      this.randomName(false);
+    }
+    this.lastPoint = this.selectedPoint.properties.time;
     this.cursorStyle.emit('pointer');
     this.accessed.emit(true);
   }

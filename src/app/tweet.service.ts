@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, retry, map, tap } from 'rxjs/operators';
+import { catchError, retry, map, tap, take } from 'rxjs/operators';
 import { FeatureCollection, Feature, Point } from 'geojson';
 import * as mapboxgl from 'mapbox-gl';
 
@@ -15,7 +15,9 @@ export class TweetService {
   getTweets(){
     return this.http.get(environment.data.tweets, {responseType: 'text'});
   }
-
+  getName(){
+    return this.http.get(environment.data.names);
+  }
   splitTweets(data: string){
     let tweets: FeatureCollection = {
       type: 'FeatureCollection',

@@ -17,9 +17,10 @@
       [lngLat]="selectedPoint.geometry.coordinates"
       (close)="selectedPoint = null"
     >
-    <span #tweet>
-      <p #name>{{selectedPoint.properties.tweet}}</p>
-      <p #category>{{selectedPoint.properties.time}}</p>
+    <span class="tweet">
+      <p class="name">{{name}} says:</p>
+      <p class="text">{{selectedPoint.properties.tweet}}</p>
+      <p class="time">{{selectedPoint.properties.time}}</p>
     </span>
     </mgl-popup>
     <mgl-popup
@@ -27,8 +28,9 @@
       [lngLat]="clickedPoints[p].geometry.coordinates"
       [closeOnClick]="true"
     >
-      <span #tweet>
-        <p #name>{{clickedPoints[p].properties.tweet}}</p>
-        <p #category>{{clickedPoints[p].properties.time}}</p>
-      </span>
+    <span class="tweet">
+      <p class="name">{{getName()}} says:</p>
+      <p class="text">{{selectedPoint.properties.tweet}}</p>
+      <p class="time">{{selectedPoint.properties.time}}</p>
+    </span>
     </mgl-popup>

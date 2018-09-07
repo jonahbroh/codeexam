@@ -9,11 +9,12 @@ export const environment = {
     places: "assets/FacebookPlaces_Albuquerque.csv",
     facts: "assets/BernallioCensusBlocks_Joined.json",
     values: "src/assets/KeyforB00000Values.txt",
-    '01001': "src/assets/ACS_13_5YR_B01001_metadata.csv",
-    '01002': "src/assets/ACS_13_5YR_B01002_metadata.csv",
-    '08301': "src/assets/ACS_13_5YR_B08301_metadata.csv",
-    '11001': "src/assets/ACS_13_5YR_B11001_metadata.csv",
-    '19051': "src/assets/ACS_13_5YR_B19051_metadata.csv"
+    B01001: "src/assets/ACS_13_5YR_B01001_metadata.csv",
+    B01002: "src/assets/ACS_13_5YR_B01002_metadata.csv",
+    B08301: "src/assets/ACS_13_5YR_B08301_metadata.csv",
+    B11001: "src/assets/ACS_13_5YR_B11001_metadata.csv",
+    B19051: "src/assets/ACS_13_5YR_B19051_metadata.csv",
+    names: "https://www.behindthename.com/api/random.json?usage=witch&randomsurname=yes&number=1&key=jo758406821"
   },
   mapbox: {
     accessToken: 'pk.eyJ1Ijoiam9uYWhicm9oIiwiYSI6ImNqbG12ZmM1ODFjbmkza281Y2NvY2x6ZncifQ.gHjZYsOCjn3Fzi9B72Xk4Q'

@@ -11,6 +11,7 @@ import { TweetComponent } from './tweet/tweet.component';
 import { PlaceComponent } from './place/place.component';
 import { FactComponent } from './fact/fact.component';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { CoincidenceComponent } from './coincidence/coincidence.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
     TweetComponent,
     PlaceComponent,
     FactComponent,
-    MapComponent
+    MapComponent,
+    CoincidenceComponent
   ],
   imports: [
     BrowserModule,
