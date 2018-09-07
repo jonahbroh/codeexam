@@ -14,12 +14,17 @@ export class CoincidenceComponent implements OnInit {
   private coincidence: Feature;
   private textLength: number;
   private textIndices: number[];
+  conjunctions: string[] = [", though ", ", although", ", even though", ", while",
+  ", if", ", only if", ", unless", ", until", ", provided that", ", assuming that",
+  ", even if", ", in case", ", lest", ", rather than", ", whether", ", as much as",
+  ", whereas"];
   selectedPoint: GeoJSON.Feature<GeoJSON.Point> | null;
   clickedPoint: GeoJSON.Feature<GeoJSON.Point> | null;
   lastPoint: Object | null;
   selectedCoords: GeoJSON.Point | null;
   clickedCoords: GeoJSON.Point | null;
   objectKeys = Object.keys;
+  selectedIndex: number | null;
   @Output() cursorStyle = new EventEmitter();
   @Output() upAccessed = new EventEmitter();
   @Input()
@@ -69,7 +74,7 @@ export class CoincidenceComponent implements OnInit {
   }
   addText(text: string){
     if(this.textLength != 0){
-      this.coincidence.properties[''+this.textLength] = "and also";
+      this.coincidence.properties[''+this.textLength] = this.conjunctions[Math.floor(Math.random()*this.conjunctions.length)];
       this.textIndices.push(this.textLength);
       this.textLength += 1;
     }
@@ -81,7 +86,24 @@ export class CoincidenceComponent implements OnInit {
     this.coincidences.features.push(this.coincidence);
     this.coincidences = {...this.coincidences};
     this.coincidenceReset();
-    console.log(this.coincidences);
+  }
+  removeCoincidence(){
+    if(this.textLength == 1){
+      this.coincidenceReset();
+    }
+    else{
+      this.coincidence.geometry['coordinates'].splice(Math.floor(this.selectedIndex/2),1);
+      for(let i of this.textIndices){
+        if(i >= this.selectedIndex){
+          this.coincidence.properties[i] = this.coincidence.properties[i+2];
+        }
+      }
+      delete this.coincidence.properties[this.textLength-2];
+      delete this.coincidence.properties[this.textLength-1];
+      this.textLength = this.textLength - 2;
+      this.textIndices.splice(this.textLength,2);
+      this.selectedIndex = null;
+    }
   }
   activateHoverOn(evt: MapMouseEvent) {
     if((this._accessed == false) && (this.clickedPoint == null || (this.clickedPoint.properties != this.selectedPoint.properties))){
@@ -116,5 +138,8 @@ export class CoincidenceComponent implements OnInit {
   }
   updateText(key: string, text: string){
     this.coincidence.properties[key] = text;
+  }
+  selectIndex(t: number){
+    this.selectedIndex = t;
   }
 }

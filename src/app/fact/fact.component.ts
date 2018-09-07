@@ -31,7 +31,6 @@ export class FactComponent implements OnInit {
   @Input()
   set upAccessed(accessed: boolean){
     this._upAccessed = accessed;
-    this._accessed = this._upAccessed;
     if(this.displayedKeys.length == 1){
       this.selectedPoint = null;
       this.selectedCoords = null;
@@ -99,7 +98,7 @@ export class FactComponent implements OnInit {
     }
   }
   activateHoverOn(evt: MapMouseEvent) {
-    if(this.clicked == false && this._accessed == false){
+    if(this.clicked == false && this._accessed == false && this._upAccessed == false){
       this.selectedPoint = null;
       this.ChangeDetectorRef.detectChanges();
       this.selectedPoint = (<any>evt).features[0];
@@ -112,7 +111,7 @@ export class FactComponent implements OnInit {
     }
   }
   disableHover(){
-    if(this.clicked == false && this._accessed == false){
+    if(this.clicked == false && this._accessed == false && this._upAccessed == false){
       this.selectedPoint = null;
       this.selectedCoords = null;
       this.cursorStyle.emit('');
@@ -120,7 +119,7 @@ export class FactComponent implements OnInit {
   }
   onClick(evt: MapMouseEvent){
     this.clicked = !this.clicked;
-    if(this.clicked == true && this._accessed == false){
+    if(this.clicked == true && this._accessed == false && this._upAccessed == false){
       this.selectedPoint = null;
       this.ChangeDetectorRef.detectChanges();
       this.selectedPoint = (<any>evt).features[0];
@@ -147,7 +146,7 @@ export class FactComponent implements OnInit {
     this.displayedKeys = [(this.displayedKeys[Math.floor(Math.random()*this.displayedKeys.length)])];
   }
   getPercentage(key: string): string{
-    var percentage = ((+this.selectedPoint.properties[key])/(+this.getTotal(key))).toFixed(2);
+    var percentage = (((+this.selectedPoint.properties[key])/(+this.getTotal(key)))*100).toFixed(2);
     var percentageString = '' + percentage + '%';
     return percentageString;
   }

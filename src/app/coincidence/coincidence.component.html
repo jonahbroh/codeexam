@@ -21,13 +21,14 @@
 <mgl-control position = 'top-left'>
   <div class = 'coincidences'>
     <span class = 'coincidence'*ngFor='let t of textIndices'>
-        <span *ngIf="t%2==0" class="text">{{coincidence.properties[t]}}</span>
+        <span *ngIf="t%2==0"><button class="text" (click)="selectIndex(t)">{{coincidence.properties[t]}}</button></span>
         <span *ngIf="t%2==1"> <input #textEnter type='text' value='{{coincidence.properties[t]}}' (keyup) = 'updateText(t,textEnter.value)'></span>
     </span>
   </div>
 </mgl-control>
-<mgl-control position = 'top-right'>
-  <button (click) = 'addCoincidence()'>Add</button>
+<mgl-control position = 'top-right' class="buttons">
+  <button *ngIf="textLength > 1" (click) = 'addCoincidence()' class="addCoincidence">Add</button>
+  <button *ngIf="selectedIndex != null" (click) = 'removeCoincidence()' class="removeCoincidence">Remove</button>
 </mgl-control>
 <mgl-popup
     *ngIf="selectedPoint"
