@@ -1,0 +1,6 @@
+.facts{
+  max-width: 450px;
+  text-align: center;
+  max-height: 450px;
+  overflow: auto;
+}

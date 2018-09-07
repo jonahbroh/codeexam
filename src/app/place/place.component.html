@@ -1,0 +1,34 @@
+<mgl-geojson-source
+     id="placesSource"
+     [data] = "places"
+ >
+ </mgl-geojson-source>
+ <mgl-layer
+  id="placesLayer"
+  type="symbol"
+  source="placesSource"
+  [layout]='{visibility: "visible", "icon-image": "shop-15"}'
+  (mouseMove)="activateHoverOn($event)"
+  (mouseLeave)="disableHover()"
+  (click)="onClick($event)"
+></mgl-layer>
+  <mgl-popup
+      *ngIf="selectedPoint"
+      [lngLat]="selectedPoint.geometry.coordinates"
+      (close)="selectedPoint = null"
+    >
+    <span #place>
+      <p #name>{{selectedPoint.properties.name}}</p>
+      <p #category>{{selectedPoint.properties.category}}</p>
+    </span>
+    </mgl-popup>
+    <mgl-popup
+      *ngFor="let p of objectKeys(clickedPoints)"
+      [lngLat]="clickedPoints[p].geometry.coordinates"
+      [closeOnClick]="true"
+    >
+      <span #tweet>
+        <p #name>{{clickedPoints[p].properties.tweet}}</p>
+        <p #category>{{clickedPoints[p].properties.time}}</p>
+      </span>
+    </mgl-popup>

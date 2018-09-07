@@ -1,0 +1,14 @@
+
+<mgl-map
+    [style]="'mapbox://styles/mapbox/streets-v9'"
+    [zoom]="[13]"
+    [center]="[-106.6504, 35.0844]"
+    [cursorStyle]="cursorStyle"
+  >
+    <app-fact (cursorStyle)='cursorStyle = $event' [accessed]='accessed'>
+      <app-place (cursorStyle)='cursorStyle = $event' (accessed)='accessed = $event'>
+      </app-place>
+      <app-tweet (cursorStyle)='cursorStyle = $event' (accessed)='accessed = $event'>
+      </app-tweet>
+    </app-fact>
+  </mgl-map>

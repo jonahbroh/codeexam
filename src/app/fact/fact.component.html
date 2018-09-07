@@ -1,0 +1,41 @@
+<mgl-geojson-source
+     id="factsSource"
+     [data] = "facts"
+ >
+ </mgl-geojson-source>
+ <mgl-layer
+  id="factsFill"
+  type="fill"
+  source="factsSource"
+  [layout]='{visibility: "visible"}'
+  [paint]="{
+      'fill-opacity': .3,
+      'fill-outline-color': '#ba4450',
+      'fill-color': '#2951c6'
+    }"
+  (mouseMove)="activateHoverOn($event)"
+  (mouseLeave)="disableHover()"
+  (click)="onClick($event)"
+  ></mgl-layer>
+  <mgl-layer
+   id="factsLine"
+   type="line"
+   source="factsSource"
+   [layout]='{visibility: "visible"}'
+   [paint]="{
+     'line-color': '#ba4450'
+     }"
+     ></mgl-layer>
+  <mgl-popup
+      *ngIf="selectedPoint"
+      [lngLat]="selectedCoords"
+      (close)="selectedPoint = null"
+    >
+    <div class = 'facts'>
+    <span class = 'fact' *ngFor = "let p of displayedKeys">
+      <p class = 'name'>{{getName(p)}} :</p>
+      <p class = 'number'>{{selectedPoint.properties[p]}} out of {{getTotal(p)}} total, {{getPercentage(p)}}</p>
+      <p *ngIf = "displayedKeys.length == 1">Click to show all data</p>
+    </span>
+  </div>
+    </mgl-popup>
