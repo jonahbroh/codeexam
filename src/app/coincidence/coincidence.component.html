@@ -19,9 +19,10 @@
  (click)="onClick($event)"
  ></mgl-layer>
 <mgl-control position = 'top-left'>
-  <div class = 'coincidenceDisplay'>
-    <span *ngFor='let t of textIndices'>
-      {{coincidence.properties[''+t]}}
+  <div class = 'coincidences'>
+    <span class = 'coincidence'*ngFor='let t of textIndices'>
+        <span *ngIf="t%2==0" class="text">{{coincidence.properties[t]}}</span>
+        <span *ngIf="t%2==1"> <input #textEnter type='text' value='{{coincidence.properties[t]}}' (keyup) = 'updateText(t,textEnter.value)'></span>
     </span>
   </div>
 </mgl-control>
@@ -33,8 +34,8 @@
     [lngLat]="selectedCoords"
     (close)="selectedPoint = null"
   >
-  <div class="coincidences">
-    <span class="coincidence" *ngFor="let t of objectKeys(selectedPoint.properties)">
+  <div class="coincidencesPopup">
+    <span class="coincidencePopup" *ngFor="let t of objectKeys(selectedPoint.properties)">
       <p class="text">{{selectedPoint.properties[t]}}</p>
     </span>
     <button class="addButton"
@@ -42,3 +43,17 @@
     Add</button>
   </div>
   </mgl-popup>
+  <mgl-popup
+      *ngIf="clickedPoint"
+      [lngLat]="clickedCoords"
+      (close)="clickedPoint = null"
+    >
+    <div class="coincidencesPopup">
+      <span class="coincidencePopup" *ngFor="let t of objectKeys(clickedPoint.properties)">
+        <p class="text">{{clickedPoint.properties[t]}}</p>
+      </span>
+      <button class="addButton"
+      (click) = 'addText(clickedPoint.properties[t]); addCoords(clickedCoords);'>
+      Add</button>
+    </div>
+    </mgl-popup>

@@ -84,7 +84,7 @@ export class CoincidenceComponent implements OnInit {
     console.log(this.coincidences);
   }
   activateHoverOn(evt: MapMouseEvent) {
-    if(this._accessed == false){
+    if((this._accessed == false) && (this.clickedPoint == null || (this.clickedPoint.properties != this.selectedPoint.properties))){
       this.selectedPoint = null;
       this.ChangeDetectorRef.detectChanges();
       this.selectedPoint = (<any>evt).features[0];
@@ -111,7 +111,10 @@ export class CoincidenceComponent implements OnInit {
       this.clickedPoint = (<any>evt).features[0];
       this.clickedCoords = (<any>evt).lngLat;
       this.cursorStyle.emit('pointer');
-      this.upAccessed.emit(false);
+      this.upAccessed.emit(true);
     }
+  }
+  updateText(key: string, text: string){
+    this.coincidence.properties[key] = text;
   }
 }
