@@ -10,11 +10,11 @@ import { MapMouseEvent } from 'mapbox-gl';
   styleUrls: ['./fact.component.css']
 })
 export class FactComponent implements OnInit {
-  private facts: FeatureCollection;
-  private displayedKeys: string[] = [];
-  private values: Object;
-  private _accessed = false;
-  private _upAccessed = false;
+  facts: FeatureCollection;
+  displayedKeys: string[] = [];
+  values: Object;
+  _accessed = false;
+  _upAccessed = false;
   clicked: boolean;
   selectedPoint: GeoJSON.Feature<GeoJSON.Point> | null;
   lastPoint: string | null;
@@ -60,26 +60,20 @@ export class FactComponent implements OnInit {
     key += labelArray[3];
     //Number that comes after HD, either 0 or 1. Corresponds to values in hdArray.
     if(labelArray[6] == null){
-      console.log(label);
       return "???";
     }
     var hd = +labelArray[6].split('HD')[1] - 1;
     key += hdArray[hd];
     //Number that comes after VD, minus one if 01002
     var vd = +labelArray[7].split('VD')[1];
-    if (labelArray[3] == 'B01002'){
-      key += vd-1
-    }
-    else{
-      key += vd;
-    }
+    key += vd;
     return this.values[key];
   }
 
   getTotal(label: string): string {
     var totalLabel = label.slice(0, -2);
     if (totalLabel == 'ACS_13_5YR_B01002_with_ann_HD01_VD'){
-      totalLabel += '02';
+      return null;
     }
     else{
       totalLabel += '01';
@@ -90,7 +84,7 @@ export class FactComponent implements OnInit {
   isDisplayed(label: string): boolean {
     var labelArray = label.split('_');
     //Maybe show margin of error alongside?
-    if(labelArray.length > 1 && labelArray[6] == 'HD01' && labelArray[7] != 'VD01' && label != 'ACS_13_5YR_B01002_with_ann_HD01_VD02'){
+    if(labelArray.length > 1 && labelArray[6] == 'HD01' && labelArray[7] != 'VD01' && label != ('ACS_13_5YR_B01002_with_ann_HD01_VD04')){
       return true;
     }
     else{
@@ -98,7 +92,7 @@ export class FactComponent implements OnInit {
     }
   }
   activateHoverOn(evt: MapMouseEvent) {
-    if(this.clicked == false && this._accessed == false && this._upAccessed == false){
+    if(this.clicked == false && this._accessed != true && this._upAccessed != true){
       this.selectedPoint = null;
       this.ChangeDetectorRef.detectChanges();
       this.selectedPoint = (<any>evt).features[0];
@@ -111,7 +105,7 @@ export class FactComponent implements OnInit {
     }
   }
   disableHover(){
-    if(this.clicked == false && this._accessed == false && this._upAccessed == false){
+    if(this.clicked == false && this._accessed != true && this._upAccessed != true){
       this.selectedPoint = null;
       this.selectedCoords = null;
       this.cursorStyle.emit('');
@@ -119,7 +113,7 @@ export class FactComponent implements OnInit {
   }
   onClick(evt: MapMouseEvent){
     this.clicked = !this.clicked;
-    if(this.clicked == true && this._accessed == false && this._upAccessed == false){
+    if(this.clicked == true && this._accessed != true && this._upAccessed != true){
       this.selectedPoint = null;
       this.ChangeDetectorRef.detectChanges();
       this.selectedPoint = (<any>evt).features[0];
@@ -151,7 +145,6 @@ export class FactComponent implements OnInit {
     return percentageString;
   }
   sendCoincidence(point: any){
-    console.log(this.facts);
     this.upCoincidence.emit(point);
   }
   access(access: boolean){

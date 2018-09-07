@@ -17,24 +17,34 @@
       [lngLat]="selectedPoint.geometry.coordinates"
       (close)="selectedPoint = null"
     >
-    <span class="place">
-      <p class="name">{{selectedPoint.properties.name}}</p>
-      <p class="category">{{selectedPoint.properties.category}}</p>
-      <button class="addButton"
-      (click) = 'sendCoincidence([selectedPoint.properties.name, [selectedPoint.geometry.coordinates.lng,selectedPoint.geometry.coordinates.lat]])'>
-      Add</button>
-    </span>
+    <div class = "placePopup">
+      <span class="place">
+        <div class="name">{{selectedPoint.properties.name}}</div>
+        <br>
+        <div class="category">{{selectedPoint.properties.category}}</div>
+        <div class="buttonHolder">
+          <button class="addButton"
+          (click) = 'sendCoincidence([selectedPoint.properties.name, [selectedPoint.geometry.coordinates.lng,selectedPoint.geometry.coordinates.lat]])'>
+          Add</button>
+        </div>
+      </span>
+    </div>
     </mgl-popup>
     <mgl-popup
         *ngIf="clickedPoint"
         [lngLat]="clickedPoint.geometry.coordinates"
         (close)="clickedPoint = null"
       >
-      <span class="place">
-        <p class="name">{{clickedPoint.properties.name}}</p>
-        <p class="category">{{clickedPoint.properties.category}}</p>
-        <button class="addButton"
-        (click) = 'sendCoincidence([clickedPoint.properties.name, clickedPoint.geometry.coordinates])'>
-        Add</button>
-      </span>
+      <div class = "placePopup">
+        <span class="place">
+          <div class="name">{{clickedPoint.properties.name}}</div>
+          <br>
+          <div class="category">{{clickedPoint.properties.category}}</div>
+          <div class="buttonHolder">
+            <button class="addButton"
+            (click) = 'sendCoincidence([clickedPoint.properties.name, clickedPoint.geometry.coordinates])'>
+            Add</button>
+          </div>
+        </span>
+      </div>
       </mgl-popup>

@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MapComponent implements OnInit {
   cursorStyle: string;
+  accessed: boolean;
+  upAccessed: boolean;
+  upCoincidence: any;
   constructor() { }
 
   ngOnInit() {

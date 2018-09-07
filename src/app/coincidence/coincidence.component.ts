@@ -8,12 +8,12 @@ import { MapMouseEvent } from 'mapbox-gl';
   styleUrls: ['./coincidence.component.css']
 })
 export class CoincidenceComponent implements OnInit {
-  private _upCoincidence: any;
-  private _accessed: boolean;
-  private coincidences: FeatureCollection;
-  private coincidence: Feature;
-  private textLength: number;
-  private textIndices: number[];
+  _upCoincidence: any;
+  _accessed: boolean;
+  coincidences: FeatureCollection;
+  coincidence: Feature;
+  textLength: number;
+  textIndices: number[];
   conjunctions: string[] = [", though ", ", although", ", even though", ", while",
   ", if", ", only if", ", unless", ", until", ", provided that", ", assuming that",
   ", even if", ", in case", ", lest", ", rather than", ", whether", ", as much as",
@@ -46,7 +46,6 @@ export class CoincidenceComponent implements OnInit {
   constructor(private ChangeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
-    console.log("???")
     this.coincidences = {
       type: 'FeatureCollection',
       features: []
@@ -82,6 +81,20 @@ export class CoincidenceComponent implements OnInit {
     this.textIndices.push(this.textLength);
     this.textLength += 1;
   }
+  addTextProperties(text: Object){
+    var addedText = '';
+    for(let i of Object.keys(text)){
+      addedText += text[i];
+    }
+    if(this.textLength != 0){
+      this.coincidence.properties[''+this.textLength] = this.conjunctions[Math.floor(Math.random()*this.conjunctions.length)];
+      this.textIndices.push(this.textLength);
+      this.textLength += 1;
+    }
+    this.coincidence.properties[''+this.textLength] = addedText;
+    this.textIndices.push(this.textLength);
+    this.textLength += 1;
+  }
   addCoincidence(){
     this.coincidences.features.push(this.coincidence);
     this.coincidences = {...this.coincidences};
@@ -106,20 +119,17 @@ export class CoincidenceComponent implements OnInit {
     }
   }
   activateHoverOn(evt: MapMouseEvent) {
-    if((this._accessed == false) && (this.clickedPoint == null || (this.clickedPoint.properties != this.selectedPoint.properties))){
+    if((this._accessed != true) && (this.clickedPoint == null)){
       this.selectedPoint = null;
       this.ChangeDetectorRef.detectChanges();
       this.selectedPoint = (<any>evt).features[0];
-      if(this.selectedPoint.properties != this.lastPoint){
-      }
-      this.lastPoint = this.selectedPoint.properties;
       this.selectedCoords = (<any>evt).lngLat;
       this.cursorStyle.emit('pointer');
       this.upAccessed.emit(true);
     }
   }
   disableHover(){
-    if(this._accessed == false){
+    if(this._accessed != true){
       this.selectedPoint = null;
       this.selectedCoords = null;
       this.cursorStyle.emit('');
@@ -127,7 +137,7 @@ export class CoincidenceComponent implements OnInit {
     }
   }
   onClick(evt: MapMouseEvent){
-    if(this._accessed == false){
+    if(this._accessed != true){
       this.clickedPoint = null;
       this.ChangeDetectorRef.detectChanges();
       this.clickedPoint = (<any>evt).features[0];

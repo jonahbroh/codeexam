@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
-import { Tweet } from '../tweet';
 import { TweetService } from '../tweet.service';
 import { FeatureCollection, Feature } from 'geojson';
 import { Observable, of, throwError } from 'rxjs';
@@ -12,7 +11,7 @@ import { MapMouseEvent } from 'mapbox-gl';
   providers: [TweetService]
 })
 export class TweetComponent implements OnInit {
-  private tweets: FeatureCollection;
+  tweets: FeatureCollection;
   selectedName: string;
   clickedName: string;
   selectedPoint: GeoJSON.Feature<GeoJSON.Point> | null;

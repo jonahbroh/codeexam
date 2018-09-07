@@ -1,0 +1,71 @@
+.mapboxgl-popup-content #tweetPopupHover{
+  background: #c0deed !important;
+}
+.tweetPopup{
+  background: #c0deed !important;
+  padding: 10px;
+  border-radius: 3px;
+  border: 2px solid #0084b4;
+}
+.name{
+  text-align: left;
+  border-radius: 5px;
+  border: 2px solid #00aced;
+  position: relative;
+  display: inline-block;
+  padding: 3px;
+}
+.tweet{
+}
+.time{
+  text-align: right
+}
+/* Speech bubble CSS from https://leaverou.github.io/bubbly/ */
+.speech-bubble {
+	position: relative;
+	background: #00aced;
+	border-radius: .4em;
+  width: 300px;
+  padding: 5px;
+}
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 36px solid transparent;
+	border-bottom-color: #00aced;
+	border-top: 0;
+	border-left: 0;
+	margin-left: -18px;
+	margin-top: -36px;
+}
+/* Button CSS from https://www.bestcssbuttongenerator.com/ */
+.addButton {
+	background-color:#00aced;
+	-moz-border-radius:36px;
+	-webkit-border-radius:36px;
+	border-radius:36px;
+	border:1px solid #1dcaff;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:6px 12px;
+	text-decoration:none;
+}
+.addButton:hover {
+	background-color:#0084b4;
+}
+.addButton:active {
+	position:relative;
+	top:1px;
+}
+.buttonHolder {
+  text-align: center;
+  align: center;
+  padding: 5px;
+}

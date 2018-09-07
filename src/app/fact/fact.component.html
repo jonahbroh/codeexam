@@ -9,8 +9,8 @@
   source="factsSource"
   [layout]='{visibility: "visible"}'
   [paint]="{
-      'fill-opacity': .2,
-      'fill-color': '#000000'
+      'fill-opacity': .01,
+      'fill-color': '#f28321'
     }"
   (mouseMove)="activateHoverOn($event)"
   (mouseLeave)="disableHover()"
@@ -26,18 +26,21 @@
      }"
      ></mgl-layer>
   <mgl-popup
-      *ngIf="selectedPoint"
-      [lngLat]="selectedCoords"
-      (close)="selectedPoint = null"
-    >
-    <div class = 'facts'>
-      <p class = 'label'>{{selectedPoint.properties['ACS_13_5YR_B01002_with_ann_GEO.display-label']}}:</p>
-    <span class = 'fact' *ngFor = "let p of displayedKeys">
-      <p class = 'name'>{{getName(p)}} :</p>
-      <p class = 'number'>{{selectedPoint.properties[p]}} out of {{getTotal(p)}} total, {{getPercentage(p)}}</p>
-      <button class = 'addButton'
-      (click) = 'sendCoincidence([getName(p), [selectedCoords.lng, selectedCoords.lat]])'>Add</button>
-      <p *ngIf = "displayedKeys.length == 1">Click to show all data</p>
-    </span>
-  </div>
-    </mgl-popup>
+  *ngIf="selectedPoint"
+  [lngLat]="selectedCoords"
+  (close)="selectedPoint = null">
+    <div class = 'factsPopup'>
+      <div class = 'label'>{{selectedPoint.properties['ACS_13_5YR_B01002_with_ann_GEO.display-label']}}:</div>
+      <div *ngFor = "let p of displayedKeys">
+        <div class = 'fact'>
+        <div class = 'name'>{{getName(p)}} :</div>
+        <span class = 'number'>{{selectedPoint.properties[p]}}</span>
+        <span class = 'number' *ngIf='getTotal(p) != null'> out of {{getTotal(p)}} total, {{getPercentage(p)}}</span>
+      </div>
+        <div class = 'buttonHolder'>
+          <button class = 'addButton' (click) = 'sendCoincidence([getName(p), [selectedCoords.lng, selectedCoords.lat]])'>Add</button>
+          <p *ngIf = "displayedKeys.length == 1">Click to show all data</p>
+        </div>
+      </div>
+    </div>
+  </mgl-popup>

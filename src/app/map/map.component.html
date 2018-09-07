@@ -1,10 +1,17 @@
 
 <mgl-map
-    [style]="'mapbox://styles/mapbox/streets-v9'"
+    [style]="'mapbox://styles/mapbox/dark-v9'"
     [zoom]="[13]"
     [center]="[-106.6504, 35.0844]"
     [cursorStyle]="cursorStyle"
   >
+    <mgl-popup [lngLat]="[-106.6504, 35.0844]">
+      <div class = "greetingsPopup">
+        <span class = "greetings">Welcome to Coincidence! Click on any item you see to pin it,
+          then click "add" in the right-hand corner to create an interesting coincidence.
+        </span>
+      </div>
+    </mgl-popup>
     <app-coincidence (cursorStyle)='cursorStyle = $event' [upCoincidence]='upCoincidence' [accessed]='accessed' (upAccessed)='upAccessed = $event'>
       <app-fact (cursorStyle)='cursorStyle = $event' [accessed]='accessed' [upAccessed]='upAccessed' (upCoincidence)='upCoincidence = $event'>
         <app-place (cursorStyle)='cursorStyle = $event' (accessed)='accessed = $event' (upCoincidence)='upCoincidence = $event'>

@@ -11,7 +11,7 @@ import { MapMouseEvent } from 'mapbox-gl';
   providers: [PlaceService]
 })
 export class PlaceComponent implements OnInit {
-  private places: FeatureCollection;
+  places: FeatureCollection;
   selectedPoint: GeoJSON.Feature<GeoJSON.Point> | null;
   clickedPoint: GeoJSON.Feature<GeoJSON.Point> | null;
   @Output() cursorStyle = new EventEmitter();

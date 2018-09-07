@@ -3,3 +3,10 @@ mgl-map {
       width: 100%;
       position: absolute;
 }
+.greetingsPopup{
+  background: #ead8ff !important;
+  padding: 10px;
+  border-radius: 3px;
+  border: 2px solid #611cb5;
+  max-width: 450px;
+}

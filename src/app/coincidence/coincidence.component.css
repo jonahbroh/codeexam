@@ -1,17 +1,138 @@
 .coincidences {
-    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-    position: relative;
-    margin-right: 60px;
-    margin-bottom: 60px;
-    padding: 10px;
+  position: relative;
+}
+.coincidence {
+  position: relative;
+}
+.control {
+  width: 85%;
+}
+/* Borderless input from https://codepen.io/shaylonh/pen/epPNYa */
+
+input[type=text] {
+  border: none;
+  background-color: #ead8ff;
+  outline: 0;
+  font-size: 20px;
+  width: 100px;
+  height: 30px;
 }
 
-.coincidences .coincidence {
-    background-color: #fff;
-    box-shadow:0 1px 2px rgba(0, 0, 0, 0.20);
-    border-radius: 33px;
-    padding: 10px;
-    position: relative;
-    /* margin-bottom: 1000px;
-    margin-top: 1000px; */
+input[type=text]:focus {
+  border: none;
+  background-color: #ead8ff;
+  outline: 0;
+  width: 100px;
+  height: 30px;
+}
+
+.center {
+  height: 40px;
+  width: 100px;
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.buttons {
+  position: relative;
+}
+.coincidenceText{
+  background: #ead8ff;
+  padding: 10px;
+  border-radius: 3px;
+  border: 2px solid #cea5ff;
+  font-size: 20px;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: #2c0e3d;
+  max-width: 30%;
+  margin-right: 30px;
+  margin-bottom: 30px;
+  padding: 10px;
+  float: left;
+}
+.conjunction{
+  background: #ead8ff;
+  padding: 10px;
+  border-radius: 3px;
+  border: 2px solid #cea5ff;
+  max-width: 30%;
+  margin-right: 30px;
+  margin-bottom: 30px;
+  padding: 10px;
+  float: left;
+  font-size: 20px;
+}
+.coincidenceText:hover {
+  background: #e1c9ff;
+}
+.activeText {
+  background: #bba3c9;
+}
+.coincidenceButton {
+  background-color:rgb(47, 0, 104, .2);
+  -moz-border-radius:42px;
+	-webkit-border-radius:42px;
+	border-radius:42px;
+	border:1px solid #611cb5;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:32px 3px;
+	text-decoration:none;
+  height: 90px;
+  width: 90px;
+}
+.coincidenceButton:hover {
+	background-color:rgb(97, 28, 181, .2);
+}
+.coincidenceButton:active {
+	position:relative;
+	top:1px;
+}
+.coincidencesPopup {
+  background: #ead8ff !important;
+  padding: 10px;
+  border-radius: 3px;
+  border: 2px solid #611cb5;
+  max-width: 450px;
+  max-height: 450px;
+  overflow: scroll;
+}
+/* Button CSS from https://www.bestcssbuttongenerator.com/ */
+.addButton {
+	background-color:#ead8ff;
+	-moz-border-radius:36px;
+	-webkit-border-radius:36px;
+	border-radius:36px;
+	border:1px solid #611cb5;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:6px 12px;
+	text-decoration:none;
+}
+.addButton:hover {
+	background-color:#bba3c9;
+}
+.addButton:active {
+	position:relative;
+	top:1px;
+}
+.buttonHolder {
+  text-align: center;
+  align: center;
+  padding: 5px;
+}
+.text {
+  text-align: center;
+  font-size: 20px;
+  color: #611cb5;
+  font-family: sans-serif;
 }
