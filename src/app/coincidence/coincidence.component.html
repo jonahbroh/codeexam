@@ -1,3 +1,44 @@
-<p>
-  coincidence works!
-</p>
+<mgl-geojson-source
+    *ngIf="coincidences"
+     id="coincidenceSource"
+     [data] = "coincidences"
+ >
+ </mgl-geojson-source>
+<mgl-layer
+*ngIf="coincidences"
+ id="coincidencesFill"
+ type="line"
+ source="coincidenceSource"
+ [layout]='{visibility: "visible", "line-join": "round", "line-cap": "round"}'
+ [paint]="{
+   'line-color': '#e8f442',
+   'line-width': 8
+   }"
+ (mouseMove)="activateHoverOn($event)"
+ (mouseLeave)="disableHover()"
+ (click)="onClick($event)"
+ ></mgl-layer>
+<mgl-control position = 'top-left'>
+  <div class = 'coincidenceDisplay'>
+    <span *ngFor='let t of textIndices'>
+      {{coincidence.properties[''+t]}}
+    </span>
+  </div>
+</mgl-control>
+<mgl-control position = 'top-right'>
+  <button (click) = 'addCoincidence()'>Add</button>
+</mgl-control>
+<mgl-popup
+    *ngIf="selectedPoint"
+    [lngLat]="selectedCoords"
+    (close)="selectedPoint = null"
+  >
+  <div class="coincidences">
+    <span class="coincidence" *ngFor="let t of objectKeys(selectedPoint.properties)">
+      <p class="text">{{selectedPoint.properties[t]}}</p>
+    </span>
+    <button class="addButton"
+    (click) = 'addText(selectedPoint.properties[t]); addCoords(selectedCoords);'>
+    Add</button>
+  </div>
+  </mgl-popup>

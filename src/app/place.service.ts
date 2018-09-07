@@ -51,7 +51,6 @@ export class PlaceService {
       // };
       places.features.push(place);
     }
-    console.log(places)
     return places;
   }
 }

@@ -14,6 +14,7 @@ export class FactComponent implements OnInit {
   private displayedKeys: string[] = [];
   private values: Object;
   private _accessed = false;
+  private _upAccessed = false;
   clicked: boolean;
   selectedPoint: GeoJSON.Feature<GeoJSON.Point> | null;
   lastPoint: string | null;
@@ -27,7 +28,18 @@ export class FactComponent implements OnInit {
       this.clicked = false;
     }
   }
+  @Input()
+  set upAccessed(accessed: boolean){
+    this._upAccessed = accessed;
+    this._accessed = this._upAccessed;
+    if(this.displayedKeys.length == 1){
+      this.selectedPoint = null;
+      this.selectedCoords = null;
+      this.clicked = false;
+    }
+  }
   @Output() cursorStyle = new EventEmitter();
+  @Output() upCoincidence = new EventEmitter();
   constructor(private factService: FactService, private ChangeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
@@ -138,5 +150,12 @@ export class FactComponent implements OnInit {
     var percentage = ((+this.selectedPoint.properties[key])/(+this.getTotal(key))).toFixed(2);
     var percentageString = '' + percentage + '%';
     return percentageString;
+  }
+  sendCoincidence(point: any){
+    console.log(this.facts);
+    this.upCoincidence.emit(point);
+  }
+  access(access: boolean){
+    this._accessed = access;
   }
 }

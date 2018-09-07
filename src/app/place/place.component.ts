@@ -11,27 +11,12 @@ import { MapMouseEvent } from 'mapbox-gl';
   providers: [PlaceService]
 })
 export class PlaceComponent implements OnInit {
-  // private testPlace: Feature = {
-  //   type: "Feature",
-  //   geometry: {
-  //     type: 'Point',
-  //     coordinates : [ 35.05, -106.5]
-  //   },
-  //   properties: {
-  //     name: "name",
-  //     category: "category",
-  //     checkins: 17
-  //   }
-  // }
-  // private places: FeatureCollection = {
-  //   type: "FeatureCollection",
-  //   features: Array<Feature>()
-  // }
   private places: FeatureCollection;
   selectedPoint: GeoJSON.Feature<GeoJSON.Point> | null;
   clickedPoint: GeoJSON.Feature<GeoJSON.Point> | null;
   @Output() cursorStyle = new EventEmitter();
   @Output() accessed = new EventEmitter();
+  @Output() upCoincidence = new EventEmitter();
   clicked: boolean;
   constructor(private placeService: PlaceService, private ChangeDetectorRef: ChangeDetectorRef) { }
 
@@ -62,5 +47,7 @@ export class PlaceComponent implements OnInit {
     this.cursorStyle.emit('pointer');
     this.accessed.emit(false);
   }
-
+  sendCoincidence(point: any){
+    this.upCoincidence.emit(point);
+  }
 }

@@ -5,10 +5,12 @@
     [center]="[-106.6504, 35.0844]"
     [cursorStyle]="cursorStyle"
   >
-    <app-fact (cursorStyle)='cursorStyle = $event' [accessed]='accessed'>
-      <app-place (cursorStyle)='cursorStyle = $event' (accessed)='accessed = $event'>
-      </app-place>
-      <app-tweet (cursorStyle)='cursorStyle = $event' (accessed)='accessed = $event'>
-      </app-tweet>
-    </app-fact>
+    <app-coincidence (cursorStyle)='cursorStyle = $event' [upCoincidence]='upCoincidence' [accessed]='accessed' (upAccessed)='upAccessed = $event'>
+      <app-fact (cursorStyle)='cursorStyle = $event' [accessed]='accessed' [upAccessed]='upAccessed' (upCoincidence)='upCoincidence = $event'>
+        <app-place (cursorStyle)='cursorStyle = $event' (accessed)='accessed = $event' (upCoincidence)='upCoincidence = $event'>
+        </app-place>
+        <app-tweet (cursorStyle)='cursorStyle = $event' (accessed)='accessed = $event' (upCoincidence)='upCoincidence = $event'>
+        </app-tweet>
+      </app-fact>
+    </app-coincidence>
   </mgl-map>

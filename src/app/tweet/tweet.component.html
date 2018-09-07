@@ -21,6 +21,9 @@
       <p class="name">{{selectedName}} says:</p>
       <p class="text">{{selectedPoint.properties.tweet}}</p>
       <p class="time">{{selectedPoint.properties.time}}</p>
+      <button class="addButton"
+      (click) = 'sendCoincidence([selectedPoint.properties.tweet, selectedPoint.geometry.coordinates])'>
+      Add</button>
     </span>
     </mgl-popup>
     <mgl-popup
@@ -32,5 +35,8 @@
         <p class="name">{{clickedName}} says:</p>
         <p class="text">{{clickedPoint.properties.tweet}}</p>
         <p class="time">{{clickedPoint.properties.time}}</p>
+        <button class="addButton"
+        (click) = 'sendCoincidence([clickedPoint.properties.tweet, clickedPoint.geometry.coordinates])'>
+        Add</button>
       </span>
       </mgl-popup>

@@ -20,6 +20,7 @@ export class TweetComponent implements OnInit {
   lastPoint: string | null;
   @Output() cursorStyle = new EventEmitter();
   @Output() accessed = new EventEmitter();
+  @Output() upCoincidence = new EventEmitter();
   clicked: boolean;
   objectKeys = Object.keys;
   constructor(private tweetService: TweetService, private ChangeDetectorRef: ChangeDetectorRef) { }
@@ -69,5 +70,8 @@ export class TweetComponent implements OnInit {
     this.clickedName = this.selectedName;
     this.cursorStyle.emit('pointer');
     this.accessed.emit(false);
+  }
+  sendCoincidence(point: any){
+    this.upCoincidence.emit(point);
   }
 }

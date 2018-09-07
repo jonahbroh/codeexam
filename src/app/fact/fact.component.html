@@ -36,6 +36,8 @@
     <span class = 'fact' *ngFor = "let p of displayedKeys">
       <p class = 'name'>{{getName(p)}} :</p>
       <p class = 'number'>{{selectedPoint.properties[p]}} out of {{getTotal(p)}} total, {{getPercentage(p)}}</p>
+      <button class = 'addButton'
+      (click) = 'sendCoincidence([getName(p), [selectedCoords.lng, selectedCoords.lat]])'>Add</button>
       <p *ngIf = "displayedKeys.length == 1">Click to show all data</p>
     </span>
   </div>
