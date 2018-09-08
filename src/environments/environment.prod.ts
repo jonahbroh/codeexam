@@ -4,12 +4,12 @@ export const environment = {
     tweets : "assets/Twitter_141103.csv",
     places: "assets/FacebookPlaces_Albuquerque.csv",
     facts: "assets/BernallioCensusBlocks_Joined.json",
-    values: "src/assets/KeyforB00000Values.txt",
-    B01001: "src/assets/ACS_13_5YR_B01001_metadata.csv",
-    B01002: "src/assets/ACS_13_5YR_B01002_metadata.csv",
-    B08301: "src/assets/ACS_13_5YR_B08301_metadata.csv",
-    B11001: "src/assets/ACS_13_5YR_B11001_metadata.csv",
-    B19051: "src/assets/ACS_13_5YR_B19051_metadata.csv",
+    values: "assets/KeyforB00000Values.txt",
+    B01001: "assets/ACS_13_5YR_B01001_metadata.csv",
+    B01002: "assets/ACS_13_5YR_B01002_metadata.csv",
+    B08301: "assets/ACS_13_5YR_B08301_metadata.csv",
+    B11001: "assets/ACS_13_5YR_B11001_metadata.csv",
+    B19051: "assets/ACS_13_5YR_B19051_metadata.csv",
     names: "https://www.behindthename.com/api/random.json?usage=witch&randomsurname=yes&number=1&key=jo758406821"
   },
   mapbox: {
